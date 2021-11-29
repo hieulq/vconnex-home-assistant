@@ -11,6 +11,7 @@ This is a custom component to allow control Vconnex smart devices in [HomeAssist
 
 * Switch
 * Power Meter
+* Cover
 
 
 ## Installation
@@ -41,22 +42,29 @@ Clone or copy this repository and copy the folder 'custom_components/vconnex_cc'
 
 ## Configuration
 
-### Active Vconnex Integration
-
-Configuration -> Integrations -> ADD INTEGRATION -> Vconnex
-![Active](https://github.com/vconnex/asset/raw/master/vconnex-home-assistant/img/active-component.png)
-
-### Enter your Vconnex credential
+### Get Vconnex credential
 
 **1.** Open [Vconnex Project](https://hass-portal.vconnex.vn) page.
 
 **2.** Login with your **Vhomenex** account. 
 
 **3.** Project -> Create project.
+![Create Project](https://github.com/vconnex/asset/raw/master/vconnex-home-assistant/img/create-project-1.png)
+![Create Project](https://github.com/vconnex/asset/raw/master/vconnex-home-assistant/img/create-project-2.png)
 
 **4.** View project detail page to get to your project credential.
+![Create Project](https://github.com/vconnex/asset/raw/master/vconnex-home-assistant/img/view-detail-1.png)
+![Create Project](https://github.com/vconnex/asset/raw/master/vconnex-home-assistant/img/view-detail-2.png)
 
-**5.** Enter your project credential.
+
+### Active Vconnex Integration
+
+**1.** Configuration -> Integrations -> ADD INTEGRATION -> Vconnex
+![Active](https://github.com/vconnex/asset/raw/master/vconnex-home-assistant/img/active-component.png
+
+**2.** Enter your project credential
+![Enter your project credential](https://github.com/vconnex/asset/raw/master/vconnex-home-assistant/img/enter-project-credential.png
+
 
 
 [license-shield]: https://img.shields.io/github/license/vconnex/vconnex-home-assistant
