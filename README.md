@@ -42,7 +42,7 @@ Clone or copy this repository and copy the folder 'custom_components/vconnex_cc'
 
 ## Configuration
 
-### Get Vconnex credential
+### Get Vconnex project credential
 
 **1.** Open [Vconnex Project](https://hass-portal.vconnex.vn) page.
 
@@ -60,10 +60,10 @@ Clone or copy this repository and copy the folder 'custom_components/vconnex_cc'
 ### Active Vconnex Integration
 
 **1.** Configuration -> Integrations -> ADD INTEGRATION -> Vconnex
-![Active](https://github.com/vconnex/asset/raw/master/vconnex-home-assistant/img/active-component.png
+![Active](https://github.com/vconnex/asset/raw/master/vconnex-home-assistant/img/active-component.png)
 
 **2.** Enter your project credential
-![Enter your project credential](https://github.com/vconnex/asset/raw/master/vconnex-home-assistant/img/enter-project-credential.png
+![Enter your project credential](https://github.com/vconnex/asset/raw/master/vconnex-home-assistant/img/enter-project-credential.png)
 
 
 
