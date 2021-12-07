@@ -33,9 +33,9 @@ This is a custom component to allow control Vconnex smart devices in [HomeAssist
 
 **6.** Restart Home Assistant
 Configuration -> Server Controls -> RESTART
-![Restart HASS](https://github.com/vconnex/asset/raw/master/vconnex-home-assistant/img/restart-hass-1.png)
+![Restart HASS 1](https://github.com/vconnex/asset/raw/master/vconnex-home-assistant/img/restart-hass-1.png)
 
-![Restart HASS](https://github.com/vconnex/asset/raw/master/vconnex-home-assistant/img/restart-hass-2.png)
+![Restart HASS 2](https://github.com/vconnex/asset/raw/master/vconnex-home-assistant/img/restart-hass-2.png)
 
 
 ### Install manually
@@ -52,22 +52,22 @@ Clone or copy this repository and copy the folder 'custom_components/vconnex_cc'
 **2.** Login with your **Vhomenex** account. 
 
 **3.** Project -> Create project.
-![Create Project](https://github.com/vconnex/asset/raw/master/vconnex-home-assistant/img/create-project-1.png)
+![Create Project 1](https://github.com/vconnex/asset/raw/master/vconnex-home-assistant/img/create-project-1.png)
 
-![Create Project](https://github.com/vconnex/asset/raw/master/vconnex-home-assistant/img/create-project-2.png)
+![Create Project 2](https://github.com/vconnex/asset/raw/master/vconnex-home-assistant/img/create-project-2.png)
 
 **4.** View project detail page to get to your project credential.
-![View Project Detail](https://github.com/vconnex/asset/raw/master/vconnex-home-assistant/img/view-detail-1.png)
+![View Project Detail 1](https://github.com/vconnex/asset/raw/master/vconnex-home-assistant/img/view-detail-1.png)
 
-![View Project Detail](https://github.com/vconnex/asset/raw/master/vconnex-home-assistant/img/view-detail-2.png)
+![View Project Detail 2](https://github.com/vconnex/asset/raw/master/vconnex-home-assistant/img/view-detail-2.png)
 
 
 ### Active Vconnex Integration
 
 **1.** Configuration -> Integrations -> ADD INTEGRATION -> Vconnex
-![Active](https://github.com/vconnex/asset/raw/master/vconnex-home-assistant/img/active-component-1.png)
+![Active 1](https://github.com/vconnex/asset/raw/master/vconnex-home-assistant/img/active-component-1.png)
 
-![Active](https://github.com/vconnex/asset/raw/master/vconnex-home-assistant/img/active-component-2.png)
+![Active 2](https://github.com/vconnex/asset/raw/master/vconnex-home-assistant/img/active-component-2.png)
 
 **2.** Enter your project credential
 ![Enter your project credential](https://github.com/vconnex/asset/raw/master/vconnex-home-assistant/img/enter-project-credential.png)
