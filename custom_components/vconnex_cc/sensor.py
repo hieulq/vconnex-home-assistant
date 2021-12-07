@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from collections.abc import Callable
 from dataclasses import dataclass
+import logging
 from typing import Any
 
 from vconnex.device import VconnexDevice, VconnexDeviceManager
@@ -35,12 +36,15 @@ from .const import DOMAIN, DispatcherSignal, ParamType
 from .entity import EntityDescListResolver, EntityDescResolver, VconnexEntity
 from .vconnex_wrap import HomeAssistantVconnexData
 
+LOGGER = logging.getLogger(__name__)
+
 
 @dataclass
 class SensorEntityDescriptionExt(SensorEntityDescription):
     """Extend description of sensor entity."""
 
     value_converter: Callable[[Any, VconnexEntity], Any] | None = None
+    extended_param: bool = False
 
 
 ENTITY_DESC_EXT_MAP = {
@@ -75,6 +79,45 @@ ENTITY_DESC_EXT_MAP = {
             device_class=DEVICE_CLASS_ENERGY,
             state_class=STATE_CLASS_TOTAL_INCREASING,
             native_unit_of_measurement=ENERGY_KILO_WATT_HOUR,
+        ),
+        # extend param
+        SensorEntityDescriptionExt(
+            key="ConsumptionCountToday",
+            device_class=DEVICE_CLASS_ENERGY,
+            state_class=STATE_CLASS_MEASUREMENT,
+            native_unit_of_measurement=ENERGY_KILO_WATT_HOUR,
+            extended_param=True,
+        ),
+        SensorEntityDescriptionExt(
+            key="ConsumptionCountThisMonth",
+            device_class=DEVICE_CLASS_ENERGY,
+            state_class=STATE_CLASS_MEASUREMENT,
+            native_unit_of_measurement=ENERGY_KILO_WATT_HOUR,
+            extended_param=True,
+        ),
+        SensorEntityDescriptionExt(
+            key="ConsumptionCostThisMonth",
+            state_class=STATE_CLASS_MEASUREMENT,
+            extended_param=True,
+        ),
+        SensorEntityDescriptionExt(
+            key="ExportCountToday",
+            device_class=DEVICE_CLASS_ENERGY,
+            state_class=STATE_CLASS_MEASUREMENT,
+            native_unit_of_measurement=ENERGY_KILO_WATT_HOUR,
+            extended_param=True,
+        ),
+        SensorEntityDescriptionExt(
+            key="ExportCountThisMonth",
+            device_class=DEVICE_CLASS_ENERGY,
+            state_class=STATE_CLASS_MEASUREMENT,
+            native_unit_of_measurement=ENERGY_KILO_WATT_HOUR,
+            extended_param=True,
+        ),
+        SensorEntityDescriptionExt(
+            key="ExportCostThisMonth",
+            state_class=STATE_CLASS_MEASUREMENT,
+            extended_param=True,
         ),
     ],
 }
@@ -145,7 +188,33 @@ class VconnexSensorEntity(VconnexEntity, SensorEntity):
     @property
     def native_value(self) -> StateType:
         """Get native value of sensor."""
+        if self.entity_description.extended_param:
+            return self._get_extended_data(
+                self.entity_description.key, self.value_converter
+            )
+
         return self.get_data(self.entity_description.key, self.value_converter)
+
+    def _get_extended_data(
+        self, param, converter: Callable[[Any, VconnexEntity], Any] = None
+    ) -> Any:
+        """Get data of ExtendedDeviceData message."""
+        try:
+            data_dict = self._get_device_data("ExtendedDeviceData")
+            if data_dict is not None and "devV" in data_dict:
+                d_values = data_dict.get("devV")
+                for d_value in d_values:
+                    if d_value.get("param") == param:
+                        param_value = d_value.get("value")
+                        return (
+                            param_value
+                            if converter is None
+                            else converter(param_value, self)
+                        )
+        except Exception:  # pylint: disable=broad-except
+            LOGGER.exception("Something went wrong!!!")
+
+        return None
 
 
 TargetEntity = VconnexSensorEntity
