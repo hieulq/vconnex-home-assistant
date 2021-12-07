@@ -29,9 +29,7 @@ TOKEN_USER_ID = "userId"
 TOKEN_PROJECT_NAME = "projectName"
 
 
-def validate_input(
-    hass: HomeAssistant, user_input: dict[str, Any]
-) -> dict[str, Any] | None:
+def validate_input(hass: HomeAssistant, user_input: dict[str, Any]) -> dict[str, Any]:
     """Validate the user input allows us to connect."""
     client_id = user_input.get(CONF_CLIENT_ID, "").strip()
     client_secret = user_input.get(CONF_CLIENT_SECRET, "").strip()
@@ -41,22 +39,24 @@ def validate_input(
 
     if (
         DOMAIN in hass.data
-        and len(datas := hass.data[DOMAIN].values())
-        and (client_id in map(lambda data: data.config_data.get(CONF_CLIENT_ID), datas))
+        and (datas := hass.data[DOMAIN].values())
+        and (client_id in [data.config_data.get(CONF_CLIENT_ID) for data in datas])
     ):
         raise CredentialsUsed
 
+    is_valid_credentials = False
     try:
         api = VconnexAPI(
             DEFAULT_ENDPOINT, client_id, client_secret, project_code=PROJECT_CODE
         )
-        if not api.is_valid():
-            LOGGER.error("Can't validate user credentials: %s", client_id)
-            raise InvalidCredentials
-    except InvalidCredentials as invalid_credential_exception:
-        raise invalid_credential_exception
+        is_valid_credentials = api.is_valid()
     except Exception:  # pylint: disable=broad-except
+        LOGGER.error("Could not connect to endpoint: %s", DEFAULT_ENDPOINT)
         raise CannotConnect from Exception
+
+    if not is_valid_credentials:
+        LOGGER.error("Could not validate user credentials: %s", client_id)
+        raise InvalidCredentials
 
     token_data = api.get_token_data()
     user_id = token_data.get(TOKEN_USER_ID)
@@ -94,10 +94,8 @@ class ConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
                 info = await self.hass.async_add_executor_job(
                     validate_input, self.hass, user_input
                 )
-                if info is not None:
-                    return self.async_create_entry(
-                        title=info["title"], data=info["data"]
-                    )
+
+                return self.async_create_entry(title=info["title"], data=info["data"])
 
             except CannotConnect:
                 errors["base"] = "cannot_connect"
