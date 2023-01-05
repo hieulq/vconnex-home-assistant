@@ -24,7 +24,7 @@ from .vconnex_wrap import HomeAssistantVconnexData
 logger = logging.getLogger(__name__)
 
 
-DEVICE_TYPE_SET = {3010, 3011, 3012, 3015, 3016, 3017, 3018, 3043}
+DEVICE_TYPE_SET = {3010, 3011, 3012, 3015, 3016, 3017, 3018, 3043, 3052}
 DEVICE_PARAM_TYPE_SET = {ParamType.ON_OFF}
 ENTITY_DESC_RESOLVER = EntityDescResolver.of(
     SwitchEntityDescription

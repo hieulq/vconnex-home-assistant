@@ -34,6 +34,12 @@ ENTITY_DESC_EXT_MAP = {
             key="eleak",
             device_class=DEVICE_CLASS_SAFETY,
         ),
+    ], 
+    3052: [
+        BinarySensorEntityDescription(
+            key="eleak",
+            device_class=DEVICE_CLASS_SAFETY,
+        ),
     ]
 }
 
